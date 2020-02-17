@@ -29,7 +29,7 @@ end
 # unset irrelevant variables
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/mnt/c/Users/loco_/Documents/pyfiles/INFO 3608/venv"
+set -gx VIRTUAL_ENV "/mnt/c/Users/loco_/Documents/pyfiles/INFO 3604/tropical_fruit_identifier/src/venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH
