@@ -1,0 +1,95 @@
+body{
+  background-color: #f2f2f2;
+}
+
+.header {
+  background-color: #ffe9ad;
+  padding-top: 30px;
+  height: 300px;
+  background-image: url("./img/tropical.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 100%;
+  position: relative;
+}
+
+/* NAVIGATION BAR */
+
+#navbar {
+  font-family: "Lato", sans-serif;
+  background-color:#ffc73a;
+  overflow: hidden;
+  z-index:1;
+}
+
+#navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 16px 20px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+#navbar a:hover {
+  color: black;
+  background-color:#68cf98;
+}
+
+#navbar a.active {
+  color: white;
+  background-color:#cb5b3b;
+}
+
+#fruitImage{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+}
+
+.center{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.content {
+  padding: 16px;
+}
+    
+.container{
+  background-color: #f2f2f2;
+  height: 1000px;
+  width: 88%;
+}
+
+.container h1{
+    text-align: center;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
+
+/* home page */
+
+.homespan {
+
+  background-image: url("./img/home1.png");
+  opacity:0.90;
+  background-position:center;
+  background-repeat:no-repeat;
+  min-height:600px;
+  padding-top:200px;
+  padding-bottom:200px;
+ 
+}
+
