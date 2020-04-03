@@ -1,4 +1,4 @@
-src/venv/
+src/venv/*
 *.pyc
 src/.vscode/*
 src/__pycache__/*
