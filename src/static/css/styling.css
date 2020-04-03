@@ -46,7 +46,8 @@ body{
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 500px;
+  max-width: 500px;
+  max-height: 500px;
 }
 
 .center{
@@ -92,4 +93,15 @@ body{
   padding-bottom:200px;
  
 }
+
+.image-table{
+  padding: 5%;
+  width:95%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.
+
 

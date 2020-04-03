@@ -8,38 +8,43 @@
         <div class="row">
             <img id="fruitImage" src="../static/css/img/tropical.png" alt="fruit" >
         </div>
+        
+        <form method="POST" action="/upload"  enctype = "multipart/form-data">
+            <div class="row">    
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" >Upload</span>
+                    </div>
+                    <div class="custom-file">
+                    <input id="upload_image" name="upload_image" type="file" class="form-control-file" accept="image/*" onchange="getImage(this)">
+                    </div>
+                </div>
+            </div>
 
-        <div class="row" id="hidden1" style="display:none">
-            <p>Is this a ... ?</p>
-            <div class="column">
-            <form>
-                <input type="radio" id="true" name="fruitValue" onclick="showFruitOptions()" value="true" checked>
-                <label for="true">Yes</label><br>
-                <input type="radio" id="false" name="fruitValue" value="false" onclick="showFruitOptions()">
-                <label for="false">No</label><br>
+            <div class="row" id="hidden1" style="display:none">
+                <p>Is this a ... ?</p>
+                <div class="column">
+                    <input type="radio" id="true" name="fruitValue" onclick="showFruitOptions()" value="true" checked>
+                    <label for="true">Yes</label><br>
+                    <input type="radio" id="false" name="fruitValue" value="false" onclick="showFruitOptions()">
+                    <label for="false">No</label><br>
                     <div id="hidden2" style="display:none">
-                    <label for="fruits">Then what is it?</label><br>
+                        <label for="fruits">Then what is it?</label><br>
                         <select id="fruits" name="fruits">
                             <option value="orange">Orange</option>
                             <option value="papaya">Papaya</option>
                             <option value="lemon">Lemon</option>
-                            <option value="cocoa">Grapefruit</option>
+                            <option value="cocoa">Cocoa</option>
                         </select>
                     </div>
-            </form>
-            </div>
-        </div>
-        
-        <div class="row">    
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" >Upload</span>
-                </div>
-                <div class="custom-file">
-                    <input type="file" class="form-control-file" accept="image/*" onchange="getImage(this)">
                 </div>
             </div>
-        </div>
+            <div>
+                <input type="submit" value="Submit" id="hidden3" style="display:none"> 
+            </div>
+        </form>
+
+
     </div>
 
     <script>
@@ -56,6 +61,7 @@
                  file_reader.readAsDataURL(image.files[0]);
                 //move following line into another function
                  document.getElementById("hidden1").style.display="inline";
+                 document.getElementById("hidden3").style.display="inline";
    
             }
     }

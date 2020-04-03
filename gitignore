@@ -2,4 +2,8 @@ src/venv/
 *.pyc
 src/.vscode/*
 src/__pycache__/*
+src/quickstart.py
+src/token.pickle
+src/credentials.json
+src/token.pickle
 

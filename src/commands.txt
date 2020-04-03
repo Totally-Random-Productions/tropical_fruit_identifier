@@ -7,3 +7,9 @@ source venv/bin/activate
 FLASK_APP=app.py flask run --reload
 
 gunicorn wsgi:app
+
+sudo mongod --dbpath ~/data/db
+
+-> instructions to install mongo https://github.com/michaeltreat/Windows-Subsystem-For-Linux-Setup-Guide/blob/master/readmes/installs/MongoDB.md
+
+pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
