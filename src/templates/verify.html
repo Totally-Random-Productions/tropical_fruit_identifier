@@ -16,21 +16,22 @@
                                 <li id="{{image._id}}"> 
                                     <image src="{{image.fruit_image}}"  style="width:100%;max-width:300px; height:150px;" onclick="openModal('{{image.fruit_image}}', '{{image._id}}');" >
                              </li>
+
+                              <div  id="fruit_modal" onclick="hideModal()">
+                                 <img id="modal_img" class="modal-content" src="/static/css/img/tropical.png"> 
+                                 <div class="btn-group modal-content">
+                                   <a href='/verify/remove/{{image._id}}'> <button type="submit">None</button></a>
+                                   <a href='/verify/cocoa/{{image._id}}'><button>Cocoa</button></a>
+                                   <a href='/verify/lemon/{{image._id}}'><button>Lemon</button></a>
+                                   <a href='/verify/orange/{{image._id}}'><button>Orange</button></a>
+                                   <a href='/verify/papaya/{{image._id}}'><button>Papaya</button></a>
+                                </div>
+                        </div>
                            
                            
                         {% endfor %}
                     </ul>
 
-                        <div  id="fruit_modal" onclick="hideModal()">
-                                 <img id="modal_img" class="modal-content" src="/static/css/img/tropical.png"> 
-                                 <div class="btn-group modal-content">
-                                    <button onclick="hideItem()">None</button>
-                                    <button onclick="hideItem()">Cocoa</button>
-                                    <button onclick="hideItem()">Lemon</button>
-                                    <button onclick="hideItem()">Orange</button>
-                                    <button onclick="hideItem()">Papaya</button>
-                                </div>
-                        </div>
                     </div>
                     </div>
                     </div>
