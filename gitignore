@@ -1,4 +1,6 @@
 src/venv/*
+src/static/unverified-fruit/*
+src/data/db/*
 *.pyc
 src/.vscode/*
 src/__pycache__/*
@@ -6,4 +8,5 @@ src/quickstart.py
 src/token.pickle
 src/credentials.json
 src/token.pickle
+venv/*
 
