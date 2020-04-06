@@ -3,6 +3,7 @@ from flask_pymongo import PyMongo
 from werkzeug.utils import secure_filename
 from datetime import datetime
 import os
+import uuid
 import json
 
 app = Flask(__name__)
@@ -34,8 +35,7 @@ def upload_image():
         table = mongo.db.unverified_fruits
         if 'upload_image' in request.files:
             upload = request.files["upload_image"]
-            filename = secure_filename(upload.filename)
-            filename = str(datetime.timestamp(datetime.now()))+filename
+            filename = secure_filename(str(uuid.uuid4()))
             destination = "/".join([target, filename])
             upload.save(destination)
             table.insert({'fruit_image': "/".join(["../static/unverified-fruit", filename])})
