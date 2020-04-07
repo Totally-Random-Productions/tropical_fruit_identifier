@@ -43,32 +43,43 @@ def uploadPage():
 @app.route("/upload", methods=['POST', 'GET'])
 def upload_image():
     #need to change where the image is stored.  temporary
-    if request.method=="POST":
-        if not os.path.isdir(veri_target):
-            os.mkdir(veri_target) 
-        table = mongo.db.unverified_fruits
-        if 'upload_image' in request.files:
-            upload = request.files["upload_image"]
-            filename = secure_filename(str(uuid.uuid4()))
-            destination = "/".join([veri_target, filename])
-            upload.save(destination)
-            table.insert({'fruit_image': "/".join([unverified_path , filename])})
-            print("Insert sucessfull.")
-    return uploadPage()
+    try:
+        if request.method=="POST":
+            if not os.path.isdir(veri_target):
+                os.mkdir(veri_target) 
+            table = mongo.db.unverified_fruits
+            if 'upload_image' in request.files:
+                upload = request.files["upload_image"]
+                filename = secure_filename(str(uuid.uuid4()))
+                destination = "/".join([veri_target, filename])
+                upload.save(destination)
+                table.insert({'fruit_image': "/".join([unverified_path , filename])})
+                print("Insert sucessfull. 200")
+        return uploadPage()
+    except Exception as e:
+        return render_template("error.html")
+
+    
 
 @app.route("/verify")
 def get_images():
-    table = mongo.db.unverified_fruits
     pictures=[]
-    for doc in table.find({}):
-        pictures += ([doc])
+    try:
+        table = mongo.db.unverified_fruits
+        for doc in table.find({}):
+            pictures += ([doc])
+    except Exception as e:
+        print("No database :(")
+    if pictures==[]:
+        return render_template("empty.html")
     return render_template("verify.html", images=pictures)
 
 @app.route("/verify/remove/<file_id>", methods=['GET', 'DELETE'])
 def remove_file(file_id):
     table = mongo.db.unverified_fruits
     result = delete_file(table, file_id)
-    print(result)
+    if result["error"]!=200:
+        return render_template("error.html", error=result)
     return redirect('/verify')
 
 @app.route("/verify/cocoa/<file_id>", methods=['GET'])
@@ -77,7 +88,8 @@ def add_cocoa(file_id):
             os.mkdir(cocoa_target) 
     table = mongo.db.unverified_fruits
     result = move_file(cocoa_target, table, file_id)
-    print(result)
+    if result["error"]!=200:
+        return render_template("error.html")
     return redirect('/verify')
 
 @app.route("/verify/lemon/<file_id>", methods=['GET'])
@@ -86,7 +98,8 @@ def add_lemon(file_id):
             os.mkdir(lemon_target) 
     table = mongo.db.unverified_fruits
     result = move_file(lemon_target, table, file_id)
-    print(result)
+    if result["error"]!=200:
+        return render_template("error.html")
     return redirect('/verify')
 
 @app.route("/verify/orange/<file_id>", methods=['GET'])
@@ -95,7 +108,8 @@ def add_orange(file_id):
             os.mkdir(orange_target) 
     table = mongo.db.unverified_fruits
     result = move_file(orange_target, table, file_id)
-    print(result)
+    if result["error"]!=200:
+        return render_template("error.html")
     return redirect('/verify')
 
 @app.route("/verify/papaya/<file_id>", methods=['GET'])
@@ -104,7 +118,8 @@ def add_papaya(file_id):
             os.mkdir(papaya_target) 
     table = mongo.db.unverified_fruits
     result = move_file(papaya_target, table, file_id)
-    print(result)
+    if result["error"]!=500:
+        return render_template("error.html")
     return redirect('/verify')
 
 def delete_file(table, file_id):
@@ -112,9 +127,9 @@ def delete_file(table, file_id):
         file=table.find_one({'_id': ObjectId(file_id)})["fruit_image"]
         table.delete_one({'_id': ObjectId(file_id)})
         os.remove(file)
-        return make_response(jsonify("Sucessfully deleted"),200)
-    except Exception:
-        return make_response(jsonify("Database error"),500)
+        return (jsonify({"message": "Sucessfully deleted", "error": 200}))
+    except Exception as e:
+         return (jsonify({"message": "An error occured", "error": 500}))
     
 def move_file(destination, src_table, file_id):
     try:
@@ -123,10 +138,9 @@ def move_file(destination, src_table, file_id):
         destination = "/".join([destination, filename])
         os.rename(file, destination)
         src_table.delete_one({'_id': ObjectId(file_id)})
-        return make_response(jsonify("Sucessfully moved"),200)
+        return (jsonify({"message": "Sucessfully deleted", "error": 200}))
     except Exception as e:
-        print (e)
-        return make_response(jsonify("Database error"),500)
+         return (jsonify({"message": "An error occured", "error": 500}))
 
 
 

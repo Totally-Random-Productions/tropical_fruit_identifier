@@ -18,7 +18,7 @@
                              </li>
 
                               <div  id="fruit_modal" onclick="hideModal()">
-                                 <img id="modal_img" class="modal-content" src="/static/css/img/tropical.png"> 
+                                 <img id="modal_img" class="modal-content" src="/static/css/img/tropical.png" style="max-height:400px"> 
                                  <div class="btn-group modal-content">
                                    <a href='/verify/remove/{{image._id}}'> <button type="submit">None</button></a>
                                    <a href='/verify/cocoa/{{image._id}}'><button>Cocoa</button></a>
@@ -41,15 +41,15 @@
 
 <script>
 
-    var id;
+
+    document.getElementById("verifyNav").classList.add("active");
+
     function openModal(img, img_id)
     {
        var modal =document.getElementById("fruit_modal");
        var modalImg = document.getElementById("modal_img");
        modalImg.src=img;
        modal.style.display = "block";
-       id=img_id;
-       console.log("ID ", id)
        
     }
 
@@ -59,11 +59,6 @@
         modal.style.display = "none";
     }
 
-    function hideItem()
-    {
-        var item=document.getElementById(id);
-        item.style.display="none";
-    }
 
 </script>
 
