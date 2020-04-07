@@ -3,12 +3,14 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.utils import secure_filename
 from datetime import datetime
+from flask_cors import CORS
 import os
 import uuid
 import json
 
 app = Flask(__name__)
 app.config["MONGO_URI"]='mongodb://localhost:27017/fruit_identifier'
+CORS(app)
 TEMPLATES_AUTO_RELOAD = True
 mongo=PyMongo(app)
 
@@ -60,7 +62,6 @@ def upload_image():
         return render_template("error.html")
 
     
-
 @app.route("/verify")
 def get_images():
     pictures=[]
@@ -78,6 +79,7 @@ def get_images():
 def remove_file(file_id):
     table = mongo.db.unverified_fruits
     result = delete_file(table, file_id)
+    print(result)
     if result["error"]!=200:
         return render_template("error.html", error=result)
     return redirect('/verify')
@@ -88,6 +90,7 @@ def add_cocoa(file_id):
             os.mkdir(cocoa_target) 
     table = mongo.db.unverified_fruits
     result = move_file(cocoa_target, table, file_id)
+    print(result)
     if result["error"]!=200:
         return render_template("error.html")
     return redirect('/verify')
@@ -98,6 +101,7 @@ def add_lemon(file_id):
             os.mkdir(lemon_target) 
     table = mongo.db.unverified_fruits
     result = move_file(lemon_target, table, file_id)
+    print(result)
     if result["error"]!=200:
         return render_template("error.html")
     return redirect('/verify')
@@ -108,6 +112,7 @@ def add_orange(file_id):
             os.mkdir(orange_target) 
     table = mongo.db.unverified_fruits
     result = move_file(orange_target, table, file_id)
+    print(result)
     if result["error"]!=200:
         return render_template("error.html")
     return redirect('/verify')
@@ -118,7 +123,8 @@ def add_papaya(file_id):
             os.mkdir(papaya_target) 
     table = mongo.db.unverified_fruits
     result = move_file(papaya_target, table, file_id)
-    if result["error"]!=500:
+    print(result)
+    if result["error"]!=200:
         return render_template("error.html")
     return redirect('/verify')
 
@@ -127,9 +133,9 @@ def delete_file(table, file_id):
         file=table.find_one({'_id': ObjectId(file_id)})["fruit_image"]
         table.delete_one({'_id': ObjectId(file_id)})
         os.remove(file)
-        return (jsonify({"message": "Sucessfully deleted", "error": 200}))
+        return ({"message": "Sucessfully deleted", "error": 200})
     except Exception as e:
-         return (jsonify({"message": "An error occured", "error": 500}))
+         return ({"message": "An error occured", "error": 500})
     
 def move_file(destination, src_table, file_id):
     try:
@@ -137,10 +143,11 @@ def move_file(destination, src_table, file_id):
         filename = secure_filename(str(uuid.uuid4()))
         destination = "/".join([destination, filename])
         os.rename(file, destination)
+        os.remove(file)
         src_table.delete_one({'_id': ObjectId(file_id)})
-        return (jsonify({"message": "Sucessfully deleted", "error": 200}))
+        return ({"message": "Sucessfully moved", "error": 200})
     except Exception as e:
-         return (jsonify({"message": "An error occured", "error": 500}))
+         return ({"message": "An error occured", "error": 500})
 
 
 
