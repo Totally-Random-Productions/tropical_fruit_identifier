@@ -18,16 +18,16 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 unverified_path = "static/unverified-fruit"
 veri_target = os.path.join(APP_ROOT, unverified_path)  
 
-cocoa_path= "static/cocoa"
+cocoa_path= "cocoa"
 cocoa_target = os.path.join(APP_ROOT, cocoa_path) 
 
-lemon_path= "static/lemon"
+lemon_path= "lemon"
 lemon_target = os.path.join(APP_ROOT, lemon_path) 
 
-orange_path= "static/orange"
+orange_path= "orange"
 orange_target = os.path.join(APP_ROOT, orange_path) 
 
-papaya_path= "static/papaya"
+papaya_path= "papaya"
 papaya_target = os.path.join(APP_ROOT, papaya_path) 
 
 @app.route("/test")
@@ -143,7 +143,7 @@ def move_file(destination, src_table, file_id):
         filename = secure_filename(str(uuid.uuid4()))
         destination = "/".join([destination, filename])
         os.rename(file, destination)
-        os.remove(file)
+        # os.remove(file)
         src_table.delete_one({'_id': ObjectId(file_id)})
         return ({"message": "Sucessfully moved", "error": 200})
     except Exception as e:
