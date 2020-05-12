@@ -6,14 +6,16 @@
             <h1>Upload Fruits</h1><br/>
         </div>
         <div class="row">
+
             <img id="fruitImage" src="../static/css/img/tropical.png" alt="fruit" >
+
         </div>
         
         <form method="POST" action="/upload"  enctype = "multipart/form-data">
             <div class="row">    
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" >Upload</span>
+                        <span class="input-group-text" >Upload and Detect</span>
                     </div>
                     <div class="custom-file">
                     <input id="upload_image" name="upload_image" type="file" class="form-control-file" accept="image/*" onchange="getImage(this)">
@@ -21,8 +23,8 @@
                 </div>
             </div>
 
-            <div class="row" id="hidden1" style="display:none">
-                <p>Is this a ... ?</p>
+           <!-- <div class="row" id="hidden1" style="display:none">
+                <p>Is this a {{lb}} ?</p>
                 <div class="column">
                     <input type="radio" id="true" name="fruitValue" onclick="showFruitOptions()" value="true" checked>
                     <label for="true">Yes</label><br>
@@ -38,9 +40,10 @@
                         </select>
                     </div>
                 </div>
-            </div>
+            </div> -->
+
             <div>
-                <input type="submit" value="Submit" id="hidden3" style="display:none"> 
+                <input type="submit" value="Detect" id="hidden3" style="display:none">
             </div>
         </form>
 
@@ -60,7 +63,7 @@
                 };
                  file_reader.readAsDataURL(image.files[0]);
                 //move following line into another function
-                 document.getElementById("hidden1").style.display="inline";
+                 //document.getElementById("hidden1").style.display="inline";
                  document.getElementById("hidden3").style.display="inline";
    
             }

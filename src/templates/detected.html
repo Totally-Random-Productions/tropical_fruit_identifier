@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h1>Fruit Detection Complete</h1><br/>
+        </div>
+        <div class="row">
+
+            <img id="fruitImage" src="../static/css/img/temp/result.png" alt="fruit" >
+
+        </div>
+        
+        <form method="POST" action="/upload"  enctype = "multipart/form-data">
+            <div class="row">    
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" >Fruit Detected</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="hidden1" style="display:inline">
+                <p>Is this a {{lb}} ?</p>
+                <div class="column">
+                    <input type="radio" id="true" name="fruitValue" onclick="showFruitOptions()" value="true" checked>
+                    <label for="true">Yes</label><br>
+                    <input type="radio" id="false" name="fruitValue" value="false" onclick="showFruitOptions()">
+                    <label for="false">No</label><br>
+                    <div id="hidden2" style="display:none">
+                        <label for="fruits">Then what is it?</label><br>
+                        <select id="fruits" name="fruits">
+                            <option value="orange">Orange</option>
+                            <option value="papaya">Papaya</option>
+                            <option value="lemon">Lemon</option>
+                            <option value="cocoa">Cocoa</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <input type="submit" value="Submit" id="hidden3" style="display:inline">
+            </div>
+        </form>
+
+
+    </div>
+
+    <script>
+
+    function showFruitOptions()
+    {
+        var wrong= document.getElementById("false");
+        if (wrong.checked==true){
+            document.getElementById("hidden2").style.display="inline";
+        }
+        else document.getElementById("hidden2").style.display="none";
+    }
+    </script>
+
+{% endblock %}

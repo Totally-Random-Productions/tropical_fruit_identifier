@@ -1,2 +1,18 @@
 
-src/__pycache__/app.cpython-37.pyc
+annotation/Images
+annotation/Labels
+annotation/.idea
+
+frontend/__pycache__/
+
+venv
+
+yolo/checkpoints/*
+!yolo/checkpoints/yolov3_ckpt_9.pth
+yolo/data
+yolo/output
+yolo/weights
+
+
+
+
