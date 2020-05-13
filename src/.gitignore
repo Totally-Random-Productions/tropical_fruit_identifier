@@ -18,6 +18,7 @@ data/custom/labels/
 
 logs/
 
-checkpoints/
+checkpoints/*
+!checkpoints/yolov3_ckpt_9.pth
 
 weights/
