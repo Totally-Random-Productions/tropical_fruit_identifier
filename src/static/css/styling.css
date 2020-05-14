@@ -22,6 +22,12 @@ body{
   z-index:1;
 }
 
+h1{
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
+
 #navbar a {
   float: left;
   display: block;

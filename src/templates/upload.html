@@ -3,15 +3,13 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <h1>Upload Fruits</h1><br/>
+            <h1 class="display-1">Upload Fruits</h1><br/>
         </div>
         <div class="row">
-
-            <img id="fruitImage" src="../static/css/img/tropical.png" alt="fruit" >
-
+            <img id="fruitImage" src="../static/css/img/tropical.png" alt="fruit" style="height:250px">
         </div>
         
-        <form method="POST" action="/upload"  enctype = "multipart/form-data">
+        <form method="POST"  enctype = "multipart/form-data">
             <div class="row">    
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -23,27 +21,8 @@
                 </div>
             </div>
 
-           <!-- <div class="row" id="hidden1" style="display:none">
-                <p>Is this a {{lb}} ?</p>
-                <div class="column">
-                    <input type="radio" id="true" name="fruitValue" onclick="showFruitOptions()" value="true" checked>
-                    <label for="true">Yes</label><br>
-                    <input type="radio" id="false" name="fruitValue" value="false" onclick="showFruitOptions()">
-                    <label for="false">No</label><br>
-                    <div id="hidden2" style="display:none">
-                        <label for="fruits">Then what is it?</label><br>
-                        <select id="fruits" name="fruits">
-                            <option value="orange">Orange</option>
-                            <option value="papaya">Papaya</option>
-                            <option value="lemon">Lemon</option>
-                            <option value="cocoa">Cocoa</option>
-                        </select>
-                    </div>
-                </div>
-            </div> -->
-
             <div>
-                <input type="submit" value="Detect" id="hidden3" style="display:none">
+                <input type="submit" value="Detect" id="hidden3" style="display:none" onclick="changeImage()">
             </div>
         </form>
 
@@ -54,6 +33,10 @@
 
     document.getElementById("uploadNav").classList.add("active");
 
+        function changeImage()
+        {
+            document.getElementById("fruitImage").src="../static/css/img/loading.gif"
+        }
         function getImage(image){
             if (image.files && image.files[0])
             {

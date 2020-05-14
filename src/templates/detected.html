@@ -19,43 +19,14 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row" id="hidden1" style="display:inline">
-                <p>Is this a {{lb}} ?</p>
-                <div class="column">
-                    <input type="radio" id="true" name="fruitValue" onclick="showFruitOptions()" value="true" checked>
-                    <label for="true">Yes</label><br>
-                    <input type="radio" id="false" name="fruitValue" value="false" onclick="showFruitOptions()">
-                    <label for="false">No</label><br>
-                    <div id="hidden2" style="display:none">
-                        <label for="fruits">Then what is it?</label><br>
-                        <select id="fruits" name="fruits">
-                            <option value="orange">Orange</option>
-                            <option value="papaya">Papaya</option>
-                            <option value="lemon">Lemon</option>
-                            <option value="cocoa">Cocoa</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <input type="submit" value="Submit" id="hidden3" style="display:inline">
-            </div>
+            <h3>Is this a {{lb}}?</h3>
+            <h4><a href="/upload">Want to submit another fruit?<a></h4>
         </form>
 
 
     </div>
 
     <script>
-
-    function showFruitOptions()
-    {
-        var wrong= document.getElementById("false");
-        if (wrong.checked==true){
-            document.getElementById("hidden2").style.display="inline";
-        }
-        else document.getElementById("hidden2").style.display="none";
-    }
+        document.getElementById("uploadNav").classList.add("active");
     </script>
-
 {% endblock %}
