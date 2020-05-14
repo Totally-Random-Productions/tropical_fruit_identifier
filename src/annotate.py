@@ -4,7 +4,9 @@
 # Author:      Qiushi
 # Created:     06/06/2014
 
-#
+# Edited by: Shereece A. A. Victor
+# For tropical fruit identifier
+# Date: 25th/02/2020
 # -------------------------------------------------------------------------------
 from __future__ import division
 from PIL import Image
@@ -28,11 +30,11 @@ SIZE = 256, 256
 classes = []
 
 try:
-    with open('classes.txt', 'r') as cls:
+    with open('data/custom/classes.names', 'r') as cls:
         classes = cls.readlines()
     classes = [cls.strip() for cls in classes]
 except IOError as io:
-    print("[ERROR] Please create classes.txt and put your all classes")
+    print("[ERROR] Please create classes.names and put your all classes")
     sys.exit(1)
 COLORS = random.sample(set(MAIN_COLORS), len(classes))
 
@@ -158,11 +160,11 @@ class LabelTool():
             except ValueError as ve:
                 mb.showerror("Error!", message="The folder should be numbers")
                 return
-        if not os.path.isdir('./Images/%s' % self.category):
+        if not os.path.isdir('data/custom/%s' % self.category):
             mb.showerror("Error!", message="The specified dir doesn't exist!")
             return
         # get image list
-        self.imageDir = os.path.join(r'./Images', '%s' % self.category)
+        self.imageDir = os.path.join(r'data/custom', '%s' % self.category)
         self.imageList = glob.glob(os.path.join(self.imageDir, '*.jpg'))
         if len(self.imageList) == 0:
             print('No .jpg images found in the specified dir!')
@@ -174,9 +176,9 @@ class LabelTool():
         self.total = len(self.imageList)
 
         # set up output dir
-        if not os.path.exists('./Labels'):
-            os.mkdir('./Labels')
-        self.outDir = os.path.join(r'./Labels', '%s' % self.category)
+        if not os.path.exists('data/custom/labels'):
+            os.mkdir('data/custom/labels')
+        self.outDir = os.path.join(r'data/custom/labels')
         if not os.path.exists(self.outDir):
             os.mkdir(self.outDir)
         self.loadImage()

@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.ticker import NullLocator
 
-from tropical_fruit_identifier.src.utils.utils import non_max_suppression
+from src.utils.utils import non_max_suppression
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -147,8 +147,9 @@ if __name__ == "__main__":
         plt.axis("off")
         plt.gca().xaxis.set_major_locator(NullLocator())
         plt.gca().yaxis.set_major_locator(NullLocator())
-        # filename = path.split("\\")[-1].split(".")[0]
+        # filename = path.split("\\")[-1].split(".")[0]  # Uncomment
         plt.savefig(f"static/css/img/temp/result.png", bbox_inches="tight", pad_inches=0.0)
-        print("end of detect")
-        # plt.savefig(f"data/temp/{filename}.png", bbox_inches="tight", pad_inches=0.0)
+        # plt.savefig(f"data/temp/{filename}.png", bbox_inches="tight", pad_inches=0.0) # Uncomment
         plt.close()
+
+# Lines with # uncomment next to them: Uncomment to run the detector without the website trigger

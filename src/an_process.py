@@ -2,7 +2,7 @@ import glob
 import os
 
 # Current directory
-current_dir = os.path.dirname(os.path.abspath(__file__))
+current_dir = "data/custom/images"
 
 print(current_dir)
 
@@ -15,8 +15,8 @@ print(current_dir)
 percentage_test = 20
 
 # Create and/or truncate train.txt and test.txt
-file_train = open('train.txt', 'w')
-file_test = open('test.txt', 'w')
+file_train = open('data/custom/train.txt', 'w')
+file_test = open('data/custom/test.txt', 'w')
 
 # Populate train.txt and test.txt
 counter = 1
