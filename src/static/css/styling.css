@@ -1,5 +1,10 @@
-body{
-  background-color: #f2f2f2;
+body,html{
+  background-color: #ffffff;
+  font-size:16px;
+  font-family:"Lato", sans-serif;
+  font-weight:400;
+  line-height:1.8em;
+  color:#666;
 }
 
 .header {
@@ -23,7 +28,7 @@ body{
 }
 
 h1{
-  padding-top:10px;
+  padding-top:25px;
   padding-bottom:10px;
 }
 
@@ -67,7 +72,7 @@ h1{
 }
     
 .container{
-  background-color: #f2f2f2;
+  background-color: #ffffff;
   height: 1000px;
   width: 88%;
 }
@@ -93,6 +98,7 @@ h1{
   background-image: url("./img/home1.png");
   opacity:0.90;
   background-position:center;
+  background-size: cover;
   background-repeat:no-repeat;
   min-height:600px;
   padding-top:200px;

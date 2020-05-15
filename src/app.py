@@ -46,6 +46,8 @@ papaya_path = "papaya"
 papaya_target = os.path.join(APP_ROOT, papaya_path) 
 
 
+#basic nav
+
 @app.route("/test")
 def hello():
     return "Hello World!"
@@ -54,6 +56,10 @@ def hello():
 @app.route("/")
 def home():
     return render_template("home.html")
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 #auth checks
 
@@ -162,12 +168,16 @@ def upload_image():
         if request.method == 'POST':
             if 'upload_image' in request.files:
                 upload = request.files["upload_image"]
-                if get_image(upload):
+                loc=get_image(upload)
+                if loc!=None:
                     if detect():
                         label = getlabel()
-                        return render_template("detected.html", lb=label)# Verify object recogition, submit to database
+                        data={"label": label, "location":loc }
                     else:
-                        return uploadPage()    # Upload and try again
+                        data={"location":loc }
+                    return render_template("detected.html", data=data)# Verify object recogition, submit to database
+                else:
+                    return uploadPage()    # Upload and try again
         return render_template("error.html")   # Something went wrong
     except Exception as e:
         print(e)
@@ -183,12 +193,13 @@ def get_image(file):
             loc=os.path.join(detect_path, filename)
             manage_folders()
             file.save(loc)
-            copy_unverified_image(loc,filename)
-            return True
-        return True
+            loc=copy_unverified_image(loc,filename)
+            if loc!=None:
+                return loc
+        return None
     except Exception as e:
         print(e)
-        return False
+        return None
 
 def copy_unverified_image(source,filename):
     try:
@@ -198,12 +209,13 @@ def copy_unverified_image(source,filename):
         table = mongo.db.unverified_fruits
         destination = "/".join([veri_target, filename])
         shutil.copyfile(source,destination)
-        table.insert({'fruit_image': "/".join([unverified_path , filename])})
+        x=table.insert({'fruit_image': "/".join([unverified_path , filename])})
+        file=table.find_one(x)
+        return file['fruit_image']
         print("Insert successful. 200")
     except Exception as e:
         print (e)
-        return False
-    return True
+        return None
 
 
 def manage_folders():
@@ -211,10 +223,10 @@ def manage_folders():
         print("data/temp")
         shutil.rmtree("data/temp")
     os.makedirs("data/temp", exist_ok=True)
-    if os.path.isdir("static/css/img/temp"):
-        print("static")
-        shutil.rmtree("static/css/img/temp")
-    os.makedirs("static/css/img/temp", exist_ok=True)
+    # if os.path.isdir("static/css/img/temp"):
+    #     print("static")
+    #     shutil.rmtree("static/css/img/temp")
+    # os.makedirs("static/css/img/temp", exist_ok=True)
     print("end of manage")
     return
 
@@ -256,7 +268,7 @@ def remove_file(file_id):
     table = mongo.db.unverified_fruits
     result = delete_file(table, file_id)
     print(result)
-    if result["error"] != 200:
+    if result["code"] != 200:
         return render_template("error.html", error=result)
     return redirect('/verify')
 
@@ -269,7 +281,7 @@ def add_cocoa(file_id):
     table = mongo.db.unverified_fruits
     result = move_file(cocoa_target, table, file_id)
     print(result)
-    if result["error"]!=200:
+    if result["code"]!=200:
         return render_template("error.html")
     return redirect('/verify')
 
@@ -282,7 +294,7 @@ def add_lemon(file_id):
     table = mongo.db.unverified_fruits
     result = move_file(lemon_target, table, file_id)
     print(result)
-    if result["error"]!=200:
+    if result["code"]!=200:
         return render_template("error.html")
     return redirect('/verify')
 
@@ -295,7 +307,7 @@ def add_orange(file_id):
     table = mongo.db.unverified_fruits
     result = move_file(orange_target, table, file_id)
     print(result)
-    if result["error"]!=200:
+    if result["code"]!=200:
         return render_template("error.html")
     return redirect('/verify')
 
@@ -308,7 +320,7 @@ def add_papaya(file_id):
     table = mongo.db.unverified_fruits
     result = move_file(papaya_target, table, file_id)
     print(result)
-    if result["error"]!=200:
+    if result["code"]!=200:
         return render_template("error.html")
     return redirect('/verify')
 
@@ -318,9 +330,10 @@ def delete_file(table, file_id):
         file=table.find_one({'_id': ObjectId(file_id)})["fruit_image"]
         table.delete_one({'_id': ObjectId(file_id)})
         os.remove(file)
-        return ({"message": "Sucessfully deleted", "error": 200})
+        return ({"message": "Sucessfully deleted", "code": 200})
     except Exception as e:
-         return ({"message": "An error occured", "error": 500})
+        print(e)
+        return ({"message": "An error occured", "code": 500})
 
 
 def move_file(destination, src_table, file_id):
@@ -331,9 +344,10 @@ def move_file(destination, src_table, file_id):
         os.rename(file, destination)
         # os.remove(file)
         src_table.delete_one({'_id': ObjectId(file_id)})
-        return ({"message": "Sucessfully moved", "error": 200})
+        return ({"message": "Sucessfully moved", "code": 200})
     except Exception as e:
-         return ({"message": "An error occured", "error": 500})
+        print(e)
+        return ({"message": "An error occured", "code": 500})
 
 
 

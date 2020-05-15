@@ -7,19 +7,18 @@
         </div>
         <div class="row">
 
-            <img id="fruitImage" src="../static/css/img/temp/result.png" alt="fruit" >
+            <img id="fruitImage" src="{{data.location}}" alt="fruit" >
 
         </div>
         
         <form method="POST" action="/upload"  enctype = "multipart/form-data">
             <div class="row">    
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" >Fruit Detected</span>
-                    </div>
-                </div>
             </div>
-            <h3>Is this a {{lb}}?</h3>
+            {% if 'label' in data%}
+                <h3>Is this a {{data.label}}?</h3>
+            {%else%}
+                <h3>We're not sure what this is</h3>
+            {% endif %}
             <h4><a href="/upload">Want to submit another fruit?<a></h4>
         </form>
 

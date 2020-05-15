@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.ticker import NullLocator
 
-from src.utils.utils import non_max_suppression
+from utils.utils import non_max_suppression
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -148,7 +148,7 @@ if __name__ == "__main__":
         plt.gca().xaxis.set_major_locator(NullLocator())
         plt.gca().yaxis.set_major_locator(NullLocator())
         # filename = path.split("\\")[-1].split(".")[0]  # Uncomment
-        plt.savefig(f"static/css/img/temp/result.png", bbox_inches="tight", pad_inches=0.0)
+        # plt.savefig(f"static/css/img/temp/result.png", bbox_inches="tight", pad_inches=0.0)
         # plt.savefig(f"data/temp/{filename}.png", bbox_inches="tight", pad_inches=0.0) # Uncomment
         plt.close()
 

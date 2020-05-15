@@ -9,20 +9,16 @@
             <img id="fruitImage" src="../static/css/img/tropical.png" alt="fruit" style="height:250px">
         </div>
         
-        <form method="POST"  enctype = "multipart/form-data">
+        <form method="POST"  id="imageForm" enctype = "multipart/form-data">
             <div class="row">    
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text" >Upload and Detect</span>
                     </div>
                     <div class="custom-file">
-                    <input id="upload_image" name="upload_image" type="file" class="form-control-file" accept="image/*" onchange="getImage(this)">
+                    <input id="upload_image" name="upload_image" type="file" class="form-control-file" accept="image/*" onchange="submitForm()">
                     </div>
                 </div>
-            </div>
-
-            <div>
-                <input type="submit" value="Detect" id="hidden3" style="display:none" onclick="changeImage()">
             </div>
         </form>
 
@@ -32,10 +28,12 @@
     <script>
 
     document.getElementById("uploadNav").classList.add("active");
+    
 
-        function changeImage()
+        function submitForm()
         {
             document.getElementById("fruitImage").src="../static/css/img/loading.gif"
+            document.getElementById("imageForm").submit();
         }
         function getImage(image){
             if (image.files && image.files[0])
