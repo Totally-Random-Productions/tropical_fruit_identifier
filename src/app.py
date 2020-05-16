@@ -13,15 +13,15 @@ import os
 import uuid
 
 app = Flask(__name__)
-app.config["MONGO_URI"]='mongodb://localhost:27017/fruit_identifier'
-app.config['JWT_SECRET_KEY'] = 'secretysackity'
+app.config["MONGO_URI"]="mongodb://localhost:27017/fruit_identifier"
+app.config['JWT_SECRET_KEY'] = 'RqtFQnBumgQNjN36Ngyf3SpoLwqnkczq3mGXRrnla4LS4lPGiaqXdb87Y0L6PsY'
+# app.config['MONGO_DBNAME'] = "fruit_identifier"
 app.config['JWT_TOKEN_LOCATION'] = ['cookies']
 app.config['JWT_ACCESS_COOKIE_PATH'] = '/'
 app.config['JWT_COOKIE_CSRF_PROTECT'] = True
 app.config['JWT_REFRESH_COOKIE_PATH'] = '/token/refresh'
 
 TEMPLATES_AUTO_RELOAD = True
-
 mongo=PyMongo(app)
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
@@ -105,6 +105,11 @@ def register():
         password = bcrypt.generate_password_hash(request.get_json()['password']).decode('utf-8')
         created = datetime.utcnow()
 
+        response = users.find_one({'email': email})
+        if response:
+            result = {'email': email + ' already registered'}
+            return jsonify({'result' : result})
+
         user_id = users.insert({
             'first_name': first_name,
             'last_name': last_name,
@@ -176,8 +181,6 @@ def upload_image():
                     else:
                         data={"location":loc }
                     return render_template("detected.html", data=data)# Verify object recogition, submit to database
-                else:
-                    return uploadPage()    # Upload and try again
         return render_template("error.html")   # Something went wrong
     except Exception as e:
         print(e)
