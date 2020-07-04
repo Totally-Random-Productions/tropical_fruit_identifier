@@ -11,7 +11,7 @@ It contains three combined parts:
     cd src
     pip3 install -r requirements.txt
 
-###Preparing the Dataset
+### Preparing the Dataset
 ##### Annotate fruit images  
 1. Add images to data/custom/images 
 2. Edit classes.names to include the categories or classes of images being annotated 
