@@ -1,6 +1,6 @@
 # tropical fruit identifier
 
-A web application which can recognize photos of Oranges, Lemons, Papayas and Cocoa and collect them for addition to a tropical fruits. 
+A web application which can recognize photos of Oranges, Lemons, Papayas and Cocoa and collect them for addition to a tropical fruit dataset. 
 It contains three combined parts: 
    1. A Yolo image annotation tool 
    2. A PyTorch implementation of Yolov3 
